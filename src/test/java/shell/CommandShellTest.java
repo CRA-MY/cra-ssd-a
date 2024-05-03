@@ -3,11 +3,8 @@ package shell;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -18,7 +15,9 @@ import static org.mockito.Mockito.*;
 class CommandShellTest {
 
     @Mock
-    Controller controller;
+    private Controller mockController;
+    @Mock
+    private InputProvider mockInputProvider;
 
     @Test
     void main_function_must_present() {
@@ -56,6 +55,14 @@ class CommandShellTest {
 
     @Test
     void send_to_controller() {
+        CommandShell commandShell = new CommandShell(mockController, mockInputProvider);
+        // mockInputProvider가 "test"와 "exit"를 순차적으로 반환하도록 설정
+        when(mockInputProvider.getInput()).thenReturn("test", "exit");
 
+        // CommandShell의 run 메소드 실행
+        commandShell.run();
+
+        // mockController의 getUserInput 메소드가 "test" 문자열로 정확히 한 번 호출되었는지 검증
+        verify(mockController, times(1)).getUserInput("test");
     }
 }

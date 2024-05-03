@@ -38,4 +38,15 @@ class ServiceTest {
         verify(iStorage, times(1)).Write(position, value);
     }
 
+    @Test
+    void exit_success() {
+        service.exit();
+    }
+
+    @Test
+    void help_success(){
+        service.help();
+        assertEquals("Help Text\n", outputStreamCaptor.toString().trim());
+
+    }
 }

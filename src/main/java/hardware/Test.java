@@ -1,4 +1,4 @@
-package ssd;
+package hardware;
 
 public class Test {
 }

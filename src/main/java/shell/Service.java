@@ -16,4 +16,13 @@ public class Service {
     public Boolean write(int position, String value) {
         return iStoreage.Write(position, value);
     }
+
+    public void exit() {
+
+        System.exit(0);
+    }
+
+    public void help() {
+        Help.getHelp();
+    }
 }

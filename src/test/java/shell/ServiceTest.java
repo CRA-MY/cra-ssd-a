@@ -46,7 +46,10 @@ class ServiceTest {
     @Test
     void help_success(){
         service.help();
-        assertEquals("Help Text\n", outputStreamCaptor.toString().trim());
+        String expectedHelp ="read(position) : 위치 입력\n";
+        expectedHelp+="write(position, value) : 위치와 입력값 입력\n";
+        expectedHelp+="exit(position, value) : 종료\n";
+        assertEquals(expectedHelp, outputStreamCaptor.toString());
 
     }
 }

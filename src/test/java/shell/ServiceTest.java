@@ -52,4 +52,17 @@ class ServiceTest {
         assertEquals(expectedHelp, outputStreamCaptor.toString());
 
     }
+
+    @Test
+    void fullwrite_success(){
+        service.fullwrite(value);
+        verify(iStorage, times(1)).Write(position, value);
+        verify(iStorage, times(99)).Write(anyInt(), value);
+    }
+    @Test
+    void fullread_success(){
+        service.fullread();
+        verify(iStorage, times(99)).Read(anyInt());
+    }
+
 }

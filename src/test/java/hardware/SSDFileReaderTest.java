@@ -28,7 +28,7 @@ class SSDFileReaderTest {
         int position = 3;
 
         String actual = reader.read(position);
-        String expected = "0x00000000";
+        String expected = "0x12345678";
 
         assertEquals(expected, actual);
     }

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CommendShellTest {
 
     @Test
-    void main함수가있어야함() {
+    void main_function_must_present() {
         try {
             Class<?> cls = Class.forName("shell.CommendShell");
             Method method = cls.getMethod("main", String[].class);
@@ -30,7 +30,7 @@ class CommendShellTest {
     }
 
     @Test
-    void 메인함수는While문을돌면서입력을받는다() {
+    void input_while_going_around() {
         String input = "ssd W 3 0xAAAABBBB";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);

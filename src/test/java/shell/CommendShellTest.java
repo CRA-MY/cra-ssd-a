@@ -2,6 +2,8 @@ package shell;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -25,5 +27,17 @@ class CommendShellTest {
         } catch (NoSuchMethodException e) {
             fail("main 메서드가 없습니다.");
         }
+    }
+
+    @Test
+    void 메인함수는While문을돌면서입력을받는다() {
+        String input = "ssd W 3 0xAAAABBBB";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        CommendShell commendShell = new CommendShell();
+
+        String result = commendShell.getInput();
+        assertEquals(input, result);
     }
 }

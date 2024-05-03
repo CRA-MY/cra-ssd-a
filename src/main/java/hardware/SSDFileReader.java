@@ -5,48 +5,30 @@ import java.io.*;
 public class SSDFileReader {
     private static final String DEFAULT_VALUE = "0x00000000";
     private static final String STORE_FILE_NAME = "nand.txt";
+    private static final String RESULT_FILE_NAME = "result.txt";
 
-    public String read(int position) {
-        if(storeFileNotExists())
-            return writeResultFile(DEFAULT_VALUE);
-
-        try {
-            // nand.txt 에서 해당 위치 읽기
-            FileReader fileReader = new FileReader(STORE_FILE_NAME);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String result = "";
-            for(int i=0; i<=position; i++)
-                result = bufferedReader.readLine();
-            bufferedReader.close();
-
-            // result.txt에 쓰기
-            FileWriter fileWriter = new FileWriter("result.txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(result);
-            bufferedWriter.close();
-            
-            return result;
-
-        } catch (FileNotFoundException e) {
-            return DEFAULT_VALUE;
-        } catch (IOException e) {
+    public String read(int position){
+        try{
+            return writeResultFile(readNandFile(position));
+        } catch (IOException io) {
             return DEFAULT_VALUE;
         }
     }
 
-    private boolean storeFileNotExists() {
-        return !new File(STORE_FILE_NAME).exists();
-    }
+    private String readNandFile(int position) throws IOException {
+        String result = "";
+        FileReader fileReader = new FileReader(STORE_FILE_NAME);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-    private String readNandFile(int position) {
-
-        return DEFAULT_VALUE;
+        for(int i = 0; i<= position; i++)
+            result = bufferedReader.readLine();
+        bufferedReader.close();
+        return result;
     }
 
     private String writeResultFile(String value) {
         try {
-            FileWriter fileWriter = new FileWriter("result.txt");
+            FileWriter fileWriter = new FileWriter(RESULT_FILE_NAME);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(value);
             bufferedWriter.close();

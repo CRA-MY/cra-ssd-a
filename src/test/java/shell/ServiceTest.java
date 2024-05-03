@@ -3,10 +3,14 @@ package shell;
 import hardware.IStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class ServiceTest {
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     IStorage iStorage;
 
@@ -18,20 +22,20 @@ class ServiceTest {
     void setUp() {
         iStorage = mock(IStorage.class);
         service = new Service(iStorage);
+        System.setOut(new PrintStream(outputStreamCaptor));
 
     }
 
     @Test
     void read_success() {
-        when(iStorage.Read(position)).thenReturn("Result");
         service.read(position);
         verify(iStorage, times(1)).Read(position);
     }
 
     @Test
     void write_success() {
-        when(iStorage.Write(position, value)).thenReturn(true);
         service.write(position, value);
         verify(iStorage, times(1)).Write(position, value);
     }
+
 }

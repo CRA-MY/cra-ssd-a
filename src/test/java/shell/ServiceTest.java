@@ -1,31 +1,37 @@
 package shell;
 
 import hardware.IStorage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
 
 class ServiceTest {
-    @Mock
+
     IStorage iStorage;
 
-    Service service = new Service(iStorage);
+    Service service;
     int position = 1;
     String value = "0xAAAABBBB";
 
-    @Test
-    void read_success(){
-        doReturn("Result").when(iStorage).Read(position);
-        service.read(position);
-        verify(iStorage,times(1)).Read(position);
+    @BeforeEach
+    void setUp() {
+        iStorage = mock(IStorage.class);
+        service = new Service(iStorage);
+
     }
 
     @Test
-    void write_success(){
-        doReturn("Result").when(iStorage).Read(position);
+    void read_success() {
+        when(iStorage.Read(position)).thenReturn("Result");
+        service.read(position);
+        verify(iStorage, times(1)).Read(position);
+    }
+
+    @Test
+    void write_success() {
+        when(iStorage.Write(position, value)).thenReturn(true);
         service.write(position, value);
-        verify(iStorage,times(1)).Write(position,value);
+        verify(iStorage, times(1)).Write(position, value);
     }
 }

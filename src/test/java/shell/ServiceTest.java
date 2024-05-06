@@ -39,16 +39,13 @@ class ServiceTest {
     }
 
     @Test
-    void exit_success() {
-        service.exit();
-    }
-
-    @Test
     void help_success(){
         service.help();
         String expectedHelp ="read(position) : 위치 입력\n";
         expectedHelp+="write(position, value) : 위치와 입력값 입력\n";
         expectedHelp+="exit(position, value) : 종료\n";
+        expectedHelp+="fullread() : 전체 read\n";
+        expectedHelp+="fullwrite(value) : 전체 write\n";
         assertEquals(expectedHelp, outputStreamCaptor.toString());
 
     }

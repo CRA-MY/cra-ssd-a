@@ -9,18 +9,14 @@ public class Service {
         this.iStoreage = iStoreage;
     }
 
-    public String read(int position) {
-        return iStoreage.Read(position);
+    public void read(int position) {
+        System.out.println(iStoreage.Read(position));
     }
 
     public Boolean write(int position, String value) {
         return iStoreage.Write(position, value);
     }
 
-    public void exit() {
-
-        System.exit(0);
-    }
 
     public void help() {
         Help.getHelp();
@@ -32,12 +28,9 @@ public class Service {
         }
     }
 
-    public String fullread() {
-        String allReslut="";
+    public void fullread() {
         for(int i=0;i<100;i++){
-            allReslut+=read(i);
-            allReslut+="\n";
+          read(i);
         }
-        return allReslut;
     }
 }

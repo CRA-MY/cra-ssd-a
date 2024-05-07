@@ -38,31 +38,24 @@ class CommandShellTest {
 
     @Test
     void testRunMethodWithUserInput() {
-        // Controller와 InputProvider 모킹
         Controller mockController = mock(Controller.class);
         InputProvider mockInputProvider = mock(InputProvider.class);
 
-        // mockInputProvider가 "test"와 "exit" 문자열을 순서대로 반환하도록 설정
         when(mockInputProvider.getInput()).thenReturn("test", "exit");
 
-        // CommandShell 객체 생성 및 run 메소드 실행
         CommandShell shell = new CommandShell(mockController, mockInputProvider);
         shell.run();
 
-        // getUserInput 메소드가 "test" 문자열로 한 번 호출되었는지 검증
         verify(mockController, times(1)).getUserInput("test");
     }
 
     @Test
     void send_to_controller() {
         CommandShell commandShell = new CommandShell(mockController, mockInputProvider);
-        // mockInputProvider가 "test"와 "exit"를 순차적으로 반환하도록 설정
         when(mockInputProvider.getInput()).thenReturn("test", "exit");
 
-        // CommandShell의 run 메소드 실행
         commandShell.run();
 
-        // mockController의 getUserInput 메소드가 "test" 문자열로 정확히 한 번 호출되었는지 검증
         verify(mockController, times(1)).getUserInput("test");
     }
 }

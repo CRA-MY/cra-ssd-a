@@ -1,7 +1,7 @@
 package shell.dto;
 
 public class UserInput {
-    String commend;
+    String command;
     int LBA;
     String value;
 
@@ -15,22 +15,18 @@ public class UserInput {
 
     String status;
 
-    public UserInput(String commend, int LBA, String value) {
-        this.commend = commend;
+    public UserInput(String command, int LBA, String value) {
+        this.command = command;
         this.LBA = LBA;
         this.value = value;
     }
 
-    public UserInput() {
-
+    public String getCommand() {
+        return command;
     }
 
-    public String getCommend() {
-        return commend;
-    }
-
-    public void setCommend(String commend) {
-        this.commend = commend;
+    public void setCommand(String command) {
+        this.command = command;
     }
 
     public int getLBA() {

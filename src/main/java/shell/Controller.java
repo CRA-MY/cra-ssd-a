@@ -49,8 +49,10 @@ public class Controller {
                 break;
             case TESTAPP1:
                 service.testapp1(DEFAULT_TESTAPP1_VALUE);
+                break;
             case TESTAPP2:
                 service.testapp2();
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported command: " + command);
         }

@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.mockito.Mockito.mock;
+import static shell.Controller.DEFAULT_TESTAPP1_VALUE;
 
 class ControllerTest {
     private Service service;
@@ -61,6 +62,24 @@ class ControllerTest {
         controller.sendService(userInput);
 
         verify(service, times(1)).fullwrite(userInput.getValue());
+    }
+
+    @Test
+    public void sendServiceShouldInvokeOnTestapp1Command() {
+        UserInput userInput = new UserInput("testapp1", -1, null);
+
+        controller.sendService(userInput);
+
+        verify(service, times(1)).testapp1(DEFAULT_TESTAPP1_VALUE);
+    }
+
+    @Test
+    public void sendServiceShouldInvokeOnTestapp2Command() {
+        UserInput userInput = new UserInput("testapp2", -1, null);
+
+        controller.sendService(userInput);
+
+        verify(service, times(1)).testapp2();
     }
 
     @Test

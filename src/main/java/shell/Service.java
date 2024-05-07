@@ -23,14 +23,14 @@ public class Service {
     }
 
     public void fullwrite(String value) {
-        for(int i=0;i<100;i++){
-            write(i,value);
+        for (int i = 0; i < 100; i++) {
+            write(i, value);
         }
     }
 
     public void fullread() {
-        for(int i=0;i<100;i++){
-          read(i);
+        for (int i = 0; i < 100; i++) {
+            read(i);
         }
     }
 }

@@ -3,6 +3,7 @@ package shell;
 import hardware.IStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -23,7 +24,6 @@ class ServiceTest {
         iStorage = mock(IStorage.class);
         service = new Service(iStorage);
         System.setOut(new PrintStream(outputStreamCaptor));
-
     }
 
     @Test
@@ -39,25 +39,25 @@ class ServiceTest {
     }
 
     @Test
-    void help_success(){
+    void help_success() {
         service.help();
-        String expectedHelp ="read(position) : 위치 입력\n";
-        expectedHelp+="write(position, value) : 위치와 입력값 입력\n";
-        expectedHelp+="exit(position, value) : 종료\n";
-        expectedHelp+="fullread() : 전체 read\n";
-        expectedHelp+="fullwrite(value) : 전체 write\n";
+        String expectedHelp = "read(position) : 위치 입력 시 read\n";
+        expectedHelp += "write(position, value) : 위치와 입력값 입력시 write\n";
+        expectedHelp += "exit(position, value) : 종료\n";
+        expectedHelp += "fullread() : 전체 read\n";
+        expectedHelp += "fullwrite(value) : 입력값 전체 write\n";
         assertEquals(expectedHelp, outputStreamCaptor.toString());
-
     }
 
     @Test
-    void fullwrite_success(){
+    void fullwrite_success() {
         service.fullwrite(value);
         verify(iStorage, times(1)).Write(position, value);
         verify(iStorage, times(100)).Write(anyInt(), anyString());
     }
+
     @Test
-    void fullread_success(){
+    void fullread_success() {
         service.fullread();
         verify(iStorage, times(100)).Read(anyInt());
     }

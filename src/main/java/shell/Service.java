@@ -33,4 +33,8 @@ public class Service {
             read(i);
         }
     }
+
+    public void testapp1(String value) {
+        fullwrite(value);
+    }
 }

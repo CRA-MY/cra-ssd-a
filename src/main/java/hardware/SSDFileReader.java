@@ -7,9 +7,17 @@ public class SSDFileReader {
     private static final String STORE_FILE_NAME = "nand.txt";
     private static final String RESULT_FILE_NAME = "result.txt";
 
+    private SSDFileWriter ssdFileWriter;
+
+    public SSDFileReader() {
+        ssdFileWriter = new SSDFileWriter();
+    }
+
     public String read(int position){
         try{
-            return writeResultFile(readNandFile(position));
+            String value = readNandFile(position);
+            ssdFileWriter.writeResultFile(value);
+            return value;
         } catch (IOException io) {
             return DEFAULT_VALUE;
         }
@@ -19,22 +27,11 @@ public class SSDFileReader {
         String result = "";
         FileReader fileReader = new FileReader(STORE_FILE_NAME);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
-
         for(int i = 0; i<= position; i++)
             result = bufferedReader.readLine();
         bufferedReader.close();
         return result;
     }
 
-    private String writeResultFile(String value) {
-        try {
-            FileWriter fileWriter = new FileWriter(RESULT_FILE_NAME);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(value);
-            bufferedWriter.close();
-            return value;
-        } catch (IOException e) {
-            return DEFAULT_VALUE;
-        }
-    }
+
 }

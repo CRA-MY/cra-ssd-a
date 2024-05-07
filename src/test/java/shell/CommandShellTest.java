@@ -46,7 +46,7 @@ class CommandShellTest {
         CommandShell shell = new CommandShell(mockController, mockInputProvider);
         shell.run();
 
-        verify(mockController, times(1)).getUserInput("test");
+        verify(mockController, times(1)).receiveUserInputString("test");
     }
 
     @Test
@@ -56,6 +56,6 @@ class CommandShellTest {
 
         commandShell.run();
 
-        verify(mockController, times(1)).getUserInput("test");
+        verify(mockController, times(1)).receiveUserInputString("test");
     }
 }

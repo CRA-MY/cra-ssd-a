@@ -2,6 +2,7 @@ package shell;
 
 import shell.dto.UserInput;
 
+
 public class Validate {
     private UserInput userInput;
 

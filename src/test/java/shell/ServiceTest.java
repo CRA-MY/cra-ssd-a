@@ -19,6 +19,8 @@ class ServiceTest {
     int position = 1;
     String value = "0xAAAABBBB";
     Service iservice;
+    String testapp2WriteValue = "0xAAAABBBB";
+    String testapp2OverWriteValue = "0x12345678";
 
     @BeforeEach
     void setUp() {
@@ -71,7 +73,9 @@ class ServiceTest {
         for(int i=0;i<100;i++){
             doReturn(value).when(iStorage).Read(i);
         }
+
         service.testapp1(value);
+
         verify(iStorage, times(1)).Write(0, value);
         verify(iStorage, times(100)).Write(anyInt(), anyString());
     }
@@ -81,11 +85,11 @@ class ServiceTest {
         for(int i=0;i<100;i++){
             doReturn(value).when(iStorage).Read(i);
         }
+        String expected = "TestApp1 성공하였습니다.\n";
 
         service.testapp1(value);
-        verify(iStorage, times(100)).Read(anyInt());
 
-        String expected = "TestApp1 성공하였습니다.\n";
+        verify(iStorage, times(100)).Read(anyInt());
         assertEquals(expected, outputStreamCaptor.toString());
     }
 
@@ -95,51 +99,52 @@ class ServiceTest {
             doReturn(value).when(iStorage).Read(i);
         }
         doReturn("Other Value").when(iStorage).Read(10);
+        String expected = "TestApp1 실패.\n";
+        expected += "10번 LBA에 0xAAAABBBB가 정상 Write 되지 않았습니다.\n";
 
         service.testapp1(value);
-        verify(iStorage, times(11)).Read(anyInt());
 
-        String expected = "TestApp1 실패.\n";
+        verify(iStorage, times(11)).Read(anyInt());
         assertEquals(expected, outputStreamCaptor.toString());
     }
 
     @Test
     void testapp2_write수행횟수확인(){
-        String testapp2WriteValue = "0xAAAABBBB";
-        String testapp2OverWriteValue = "0x12345678";
         for(int i=0;i<5;i++){
             doReturn(testapp2OverWriteValue).when(iStorage).Read(i);
         }
+
         service.testapp2();
+
         verify(iStorage, times(30)).Write(0, testapp2WriteValue);
         verify(iStorage, times(1)).Write(0, testapp2OverWriteValue);
     }
 
     @Test
     void testapp2_성공시_read수행횟수및성공출력확인(){
-        String testapp2OverWriteValue = "0x12345678";
         for(int i=0;i<5;i++){
             doReturn(testapp2OverWriteValue).when(iStorage).Read(i);
         }
-        service.testapp2();
-        verify(iStorage, times(5)).Read(anyInt());
-
         String expected = "TestApp2 성공하였습니다.\n";
+
+        service.testapp2();
+
+        verify(iStorage, times(5)).Read(anyInt());
         assertEquals(expected, outputStreamCaptor.toString());
     }
 
     @Test
     void testapp2_실패시_read수행횟수및실패출력확인(){
-        String testapp2OverWriteValue = "0x12345678";
         for(int i=0;i<3;i++){
             doReturn(testapp2OverWriteValue).when(iStorage).Read(i);
         }
         doReturn("Other Value").when(iStorage).Read(3);
+        String expected = "TestApp2 실패.\n";
+        expected += "3번 LBA에 0x12345678가 정상 Over Write 되지 않았습니다.\n";
 
         service.testapp2();
-        verify(iStorage, times(4)).Read(anyInt());
 
-        String expected = "TestApp2 실패.\n";
+        verify(iStorage, times(4)).Read(anyInt());
         assertEquals(expected, outputStreamCaptor.toString());
     }
 

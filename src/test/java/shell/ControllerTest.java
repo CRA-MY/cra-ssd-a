@@ -1,20 +1,30 @@
 package shell;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import shell.dto.UserInput;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.mockito.Mockito.mock;
 
 class ControllerTest {
     private Service service;
     private Controller controller;
+    private Validate validate;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() {
         service = mock(Service.class);
+        validate = mock(Validate.class);
         controller = new Controller(service);
+        controller.validate = validate;
+        System.setOut(new PrintStream(outContent));
     }
 
     @Test
@@ -54,11 +64,23 @@ class ControllerTest {
     }
 
     @Test
-    public void sendServiceShouldInvokeFullreadOnFullreadCommand() {
-        UserInput userInput = new UserInput("fullread", -1, null);
+    void testReceiveUserInputStringWithValidCommand() {
+        UserInput validUserInput = new UserInput("READ", 1, "value", "VALID");
+        when(validate.validateComand("read 1")).thenReturn(validUserInput);
 
-        controller.sendService(userInput);
+        controller.receiveUserInputString("read 1");
 
-        verify(service, times(1)).fullread();
+        verify(service, times(1)).read(1);
+        assertNotEquals("INVALID COMMAND\n", outContent.toString());
+    }
+
+    @Test
+    void testReceiveUserInputStringWithInvalidCommand() {
+        when(validate.validateComand("invalid command")).thenThrow(new IllegalArgumentException("INVALID COMMAND"));
+
+        controller.receiveUserInputString("invalid command");
+
+        verify(service, never()).read(anyInt());
+        assertEquals("INVALID COMMAND\r\n", outContent.toString());
     }
 }

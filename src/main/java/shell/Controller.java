@@ -4,13 +4,27 @@ import shell.dto.UserInput;
 
 public class Controller {
     Service service;
+    Validate validate;
 
     public Controller(Service service) {
         this.service = service;
+        this.validate = new Validate();
     }
 
-    public String getUserInput(String input) {
-        return null;
+    public void receiveUserInputString(String userInputString) {
+        UserInput userInput;
+        try {
+            userInput = validate.validateComand(userInputString);
+            if (userInput.getStatus().equals("INVALID COMMAND")) {
+                System.out.println("INVALID COMMAND");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("INVALID COMMAND");
+            return;
+        }
+
+        sendService(userInput);
     }
 
     public void sendService(UserInput userInput) {

@@ -2,10 +2,10 @@ package shell.dto;
 
 public class UserInput {
     String commend;
-    String LBA;
+    int LBA;
     String value;
 
-    public UserInput(String commend, String LBA, String value) {
+    public UserInput(String commend, int LBA, String value) {
         this.commend = commend;
         this.LBA = LBA;
         this.value = value;
@@ -19,11 +19,11 @@ public class UserInput {
         this.commend = commend;
     }
 
-    public String getLBA() {
+    public int getLBA() {
         return LBA;
     }
 
-    public void setLBA(String LBA) {
+    public void setLBA(int LBA) {
         this.LBA = LBA;
     }
 

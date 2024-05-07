@@ -1,5 +1,7 @@
 package shell;
 
+import hardware.SSDManager;
+
 import java.util.Scanner;
 
 public class CommandShell {
@@ -21,7 +23,7 @@ public class CommandShell {
     }
 
     public static void main(String[] args) {
-        Controller controller = new Controller();
+        Controller controller = new Controller(new Service(new SSDManager()));
         InputProvider scannerInputProvider = () -> new Scanner(System.in).nextLine();
         new CommandShell(controller, scannerInputProvider).run();
     }

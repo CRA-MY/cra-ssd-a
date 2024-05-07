@@ -6,7 +6,8 @@ public class UserInput {
     String value;
     String status;
 
-    public UserInput() {
+    public UserInput(String cmd) {
+        this.command = cmd;
         this.status = "PASS";
     }
 

@@ -5,24 +5,17 @@ import shell.dto.UserInput;
 public class Validate {
     private UserInput userInput;
 
-    public Validate() {
-        this.userInput = new UserInput();
-    }
-
     public UserInput validateCommand(String str) {
         String[] checkStr = str.trim().split("\\s+");
+
         if (checkStr.length < 1 || checkStr[0].equals("")) {
             return setInvalidCommand();
         }
 
         String cmd = checkStr[0];
         UserCommand command = UserCommand.fromString(cmd);
-        if (command == null) {
-            return setInvalidCommand();
-        }
-
-        userInput.setCommand(cmd);
-        boolean isValid = false;
+        userInput = new UserInput(cmd);
+        boolean isValid = true;
         switch (command) {
             case READ :
                 isValid = validateReadCommand(checkStr);
@@ -32,6 +25,9 @@ public class Validate {
                 break;
             case FULLWRITE :
                 isValid = validateFullWriteCommand(checkStr);
+                break;
+            case HELP:
+            case FULLREAD:
                 break;
             default :
                 isValid = false;

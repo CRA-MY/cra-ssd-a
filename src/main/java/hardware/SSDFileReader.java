@@ -8,17 +8,18 @@ public class SSDFileReader {
     private static final String STORE_FILE_NAME = "nand.txt";
     private static final int MAX_NAND_INDEX = 100;
 
-    public static String read(int position){
+    public String read(int position){
         try{
+            SSDFileWriter writer = new SSDFileWriter();
             ArrayList<String> value = readNandAllContents();
-            SSDFileWriter.writeResultFile(value.get(position));
+            writer.writeResultFile(value.get(position));
             return value.get(position);
         } catch (IOException io) {
             return DEFAULT_VALUE;
         }
     }
 
-    public static ArrayList<String> readNandAllContents(){
+    public ArrayList<String> readNandAllContents(){
         try {
             ArrayList<String> result = new ArrayList<>();
             FileReader fileReader = new FileReader(STORE_FILE_NAME);
@@ -31,7 +32,7 @@ public class SSDFileReader {
         }
     }
 
-    private static ArrayList<String> getDefaultList() {
+    private ArrayList<String> getDefaultList() {
         ArrayList<String> result = new ArrayList<>();
         for(int i = 0; i< MAX_NAND_INDEX; i++)
             result.add(DEFAULT_VALUE);

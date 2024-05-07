@@ -2,6 +2,7 @@ package shell;
 
 import shell.dto.UserInput;
 
+
 public class Validate {
     private UserInput userInput;
 
@@ -28,6 +29,8 @@ public class Validate {
                 break;
             case HELP:
             case FULLREAD:
+            case TESTAPP1:
+            case TESTAPP2:
                 isValid = true;
                 break;
             default :
@@ -73,11 +76,12 @@ public class Validate {
         if (!value.startsWith("0x") || value.length() != 10) {
             return false;
         }
-
+      
         for(int i=2; i<value.length(); i++){
             if('0' > value.toLowerCase().charAt(i) || value.toLowerCase().charAt(i)>'f' )
                 return false;
         }
+
         userInput.setValue(value);
         return true;
     }

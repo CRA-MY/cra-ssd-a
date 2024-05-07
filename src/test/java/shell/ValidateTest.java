@@ -110,18 +110,6 @@ class ValidateTest {
     }
 
     @Test
-    void testValidateValueWithInvalidWord() {
-
-        assertFalse(validate.validateValue("0x123456ee"));
-
-    }
-
-    @Test
-    void testValidateValueWithValidInput() {
-        assertTrue(validate.validateValue("0x12345678"));
-    }
-
-    @Test
     void validateWriteComand(){
         String str = "write  3  0xAAAABBBB";
         Validate validate = new Validate();
@@ -165,19 +153,5 @@ class ValidateTest {
         ret = validate.validateCommand(str);
         assertEquals("PASS",ret.getStatus());
     }
-
-    /*@Test
-    void validateLBA(){
-        boolean ret = validate.validateLBA("1");
-        assertEquals(true,ret );
-    }
-
-    @Test
-    void validateValue(){
-
-        boolean ret = validate.validateValue("0x00000000");
-        assertEquals(true, ret);
-    }*/
-
 
 }

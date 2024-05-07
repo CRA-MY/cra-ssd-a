@@ -11,6 +11,13 @@ public class UserInput {
         this.status = "PASS";
     }
 
+    public UserInput(String command, int LBA, String value, String status) {
+        this.command = command;
+        this.LBA = LBA;
+        this.value = value;
+        this.status = status;
+    }
+
     public String getStatus() {
         return status;
     }

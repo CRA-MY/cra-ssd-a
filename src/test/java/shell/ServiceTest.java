@@ -115,5 +115,32 @@ class ServiceTest {
         verify(iStorage, times(1)).Write(0, testapp2OverWriteValue);
     }
 
+    @Test
+    void testapp2_성공시_read수행횟수및성공출력확인(){
+        String testapp2OverWriteValue = "0x12345678";
+        for(int i=0;i<5;i++){
+            doReturn(testapp2OverWriteValue).when(iStorage).Read(i);
+        }
+        service.testapp2();
+        verify(iStorage, times(5)).Read(anyInt());
+
+        String expected = "TestApp2 성공하였습니다.\n";
+        assertEquals(expected, outputStreamCaptor.toString());
+    }
+
+    @Test
+    void testapp2_실패시_read수행횟수및실패출력확인(){
+        String testapp2OverWriteValue = "0x12345678";
+        for(int i=0;i<3;i++){
+            doReturn(testapp2OverWriteValue).when(iStorage).Read(i);
+        }
+        doReturn("Other Value").when(iStorage).Read(3);
+
+        service.testapp2();
+        verify(iStorage, times(4)).Read(anyInt());
+
+        String expected = "TestApp2 실패.\n";
+        assertEquals(expected, outputStreamCaptor.toString());
+    }
 
 }

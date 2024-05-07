@@ -18,12 +18,14 @@ class ServiceTest {
     Service service;
     int position = 1;
     String value = "0xAAAABBBB";
+    Service iservice;
 
     @BeforeEach
     void setUp() {
         iStorage = mock(IStorage.class);
         service = new Service(iStorage);
         System.setOut(new PrintStream(outputStreamCaptor));
+        iservice = mock(Service.class);
     }
 
     @Test
@@ -63,5 +65,14 @@ class ServiceTest {
         service.fullread();
         verify(iStorage, times(100)).Read(anyInt());
     }
+
+    @Test
+    void testapp1_fullwrite수행여부확인(){
+        service.testapp1(value);
+        verify(iStorage, times(1)).Write(0, value);
+        verify(iStorage, times(100)).Write(anyInt(), anyString());
+    }
+
+
 
 }

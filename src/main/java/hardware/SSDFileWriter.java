@@ -11,7 +11,7 @@ public class SSDFileWriter {
     private static final String RESULT_FILE_NAME = "result.txt";
     private static final String STORE_FILE_NAME = "nand.txt";
 
-    public static void writeNandFile(int position, String value) {
+    public static void write(int position, String value) {
         try {
             ArrayList<String> base_list = SSDFileReader.readNandAllContents();
             base_list.set(position, value);

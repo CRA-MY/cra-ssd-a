@@ -23,12 +23,16 @@ public class Validate {
                 break;
             case WRITE :
                 isValid = validateWriteCommand(checkStr);
+                userInput.setValue(checkStr[2]);
                 break;
             case FULLWRITE :
                 isValid = validateFullWriteCommand(checkStr);
+                userInput.setValue(checkStr[1]);
                 break;
             case HELP:
             case FULLREAD:
+            case TESTAPP1:
+            case TESTAPP2:
                 isValid = true;
                 break;
             default :

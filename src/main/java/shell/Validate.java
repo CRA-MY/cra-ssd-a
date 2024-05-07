@@ -23,11 +23,9 @@ public class Validate {
                 break;
             case WRITE :
                 isValid = validateWriteCommand(checkStr);
-                userInput.setValue(checkStr[2]);
                 break;
             case FULLWRITE :
                 isValid = validateFullWriteCommand(checkStr);
-                userInput.setValue(checkStr[1]);
                 break;
             case HELP:
             case FULLREAD:
@@ -78,6 +76,7 @@ public class Validate {
         if (!value.startsWith("0x") || value.length() != 10) {
             return false;
         }
+        userInput.setValue(value);
         return true;
     }
 

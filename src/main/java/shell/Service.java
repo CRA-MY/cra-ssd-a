@@ -58,6 +58,14 @@ public class Service {
             write(i, testapp2OverWriteValue);
         }
 
+        for (int i = 0; i < 5; i++) {
+            if (!iStorage.Read(i).equals(testapp2OverWriteValue)) {
+                System.out.print("TestApp2 실패.\n");
+                return;
+            }
+        }
+
+        System.out.print("TestApp2 성공하였습니다.\n");
     }
 
 }

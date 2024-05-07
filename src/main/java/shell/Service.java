@@ -15,8 +15,8 @@ public class Service {
         System.out.println(iStorage.Read(position));
     }
 
-    public Boolean write(int position, String value) {
-        return iStorage.Write(position, value);
+    public void write(int position, String value) {
+        iStorage.Write(position, value);
     }
 
     public void help() {

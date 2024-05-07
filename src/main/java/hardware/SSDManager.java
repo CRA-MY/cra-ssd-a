@@ -20,7 +20,7 @@ public class SSDManager implements IStorage {
     }
 
     @Override
-    public Boolean Write(int position, String value) {
+    public void Write(int position, String value) {
         return ssdFileWriter.write(position, value);
     }
 }

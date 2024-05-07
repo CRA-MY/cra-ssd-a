@@ -43,14 +43,15 @@ class ValidateTest {
 
     @Test
     void validateLBA(){
-        int ret = validate.validateLBA("1");
-        assertEquals(2,ret );
+        boolean ret = validate.validateLBA("1");
+        assertEquals(true,ret );
     }
 
     @Test
     void validateValue(){
 
-        validate.validateValue("0x00000000");
+        boolean ret = validate.validateValue("0x00000000");
+        assertEquals(true, ret);
     }
 
 

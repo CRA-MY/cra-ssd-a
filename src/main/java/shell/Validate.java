@@ -7,35 +7,35 @@ import java.util.Arrays;
 
 
 public class Validate {
-
-    ArrayList<String> command ;
-
     UserInput userInput ;
 
     public Validate() {
         this.userInput = new UserInput();
-        command = new ArrayList<>(
-                Arrays.asList("write","read","fullwrite","fullread","exit","help")
-        );
     }
 
     public UserInput validateComand(String str) {
         String[] checkStr = str.split(" ");
-        if(checkStr.length<1 || !command.contains(checkStr[0]))  {
+        if(checkStr.length<1)  {
             userInput.setStatus("INVALID COMMAND");
             return userInput;
         }
-        String cmd = checkStr[0];
-        int cmdNum = command.indexOf(cmd);
 
-        userInput.setCommend(cmd);
-        if(cmdNum == 2 ){   //fullwrite
-            validateValue(checkStr[2]);
-        } else if(cmdNum == 1){      //read
-            validateLBA(checkStr[1]);
-        }else if(cmdNum == 0){        //write
-            validateLBA(checkStr[1]);
-            validateValue(checkStr[2]);
+        String cmd = checkStr[0];
+        userInput.setCommand(cmd);
+        UserCommand command = UserCommand.fromString(cmd);
+        switch (command){
+            case READ:
+                validateLBA(checkStr[1]);
+                break;
+            case WRITE:
+                validateLBA(checkStr[1]);
+                validateValue(checkStr[2]);
+                break;
+            case FULLWRITE:
+                validateValue(checkStr[2]);
+                break;
+            default:
+                userInput.setStatus("INVALID COMMAND");
         }
         return userInput;
     }

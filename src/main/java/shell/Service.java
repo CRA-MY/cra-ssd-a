@@ -17,7 +17,6 @@ public class Service {
         return iStorage.Write(position, value);
     }
 
-
     public void help() {
         Help.getHelp();
     }
@@ -36,13 +35,29 @@ public class Service {
 
     public void testapp1(String value) {
         fullwrite(value);
-        for(int i=0;i<100;i++){
-            if(!iStorage.Read(i).equals(value)){
+        for (int i = 0; i < 100; i++) {
+            if (!iStorage.Read(i).equals(value)) {
                 System.out.print("TestApp1 실패.\n");
                 return;
             }
         }
         System.out.print("TestApp1 성공하였습니다.\n");
+    }
+
+    public void testapp2() {
+        String testapp2WriteValue = "0xAAAABBBB";
+        String testapp2OverWriteValue = "0x12345678";
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 30; j++) {
+                write(i, testapp2WriteValue);
+            }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            write(i, testapp2OverWriteValue);
+        }
+
     }
 
 }

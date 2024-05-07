@@ -8,14 +8,14 @@ public class Validate {
     public UserInput validateCommand(String str) {
         String[] checkStr = str.trim().split("\\s+");
 
-        if (checkStr.length < 1 || checkStr[0].equals("")) {
+        String cmd = checkStr[0];
+        userInput = new UserInput(cmd);
+        if (checkStr.length < 1 || cmd.equals("")) {
             return setInvalidCommand();
         }
 
-        String cmd = checkStr[0];
         UserCommand command = UserCommand.fromString(cmd);
-        userInput = new UserInput(cmd);
-        boolean isValid = true;
+        boolean isValid = false;
         switch (command) {
             case READ :
                 isValid = validateReadCommand(checkStr);
@@ -28,6 +28,7 @@ public class Validate {
                 break;
             case HELP:
             case FULLREAD:
+                isValid = true;
                 break;
             default :
                 isValid = false;
@@ -63,7 +64,7 @@ public class Validate {
             }
             userInput.setLBA(result);
             return true;
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             return false;
         }
     }

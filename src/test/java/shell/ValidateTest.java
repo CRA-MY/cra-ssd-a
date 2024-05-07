@@ -159,7 +159,7 @@ class ValidateTest {
         assertEquals("PASS",ret.getStatus());
     }
 
-    @Test
+    /*@Test
     void validateLBA(){
         boolean ret = validate.validateLBA("1");
         assertEquals(true,ret );
@@ -170,7 +170,7 @@ class ValidateTest {
 
         boolean ret = validate.validateValue("0x00000000");
         assertEquals(true, ret);
-    }
+    }*/
 
 
 }

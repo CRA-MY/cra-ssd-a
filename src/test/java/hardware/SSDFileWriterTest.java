@@ -1,15 +1,23 @@
 package hardware;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SSDFileWriterTest {
 
+    SSDFileWriter writer;
+
+    @BeforeEach
+    public void setUp() {
+        writer = new SSDFileWriter();
+    }
+
     @Test
     public void write_result_file() {
         assertDoesNotThrow(() -> {
-            SSDFileWriter.writeResultFile("0x00000000");
+            writer.writeResultFile("0x00000000");
         });
     }
 
@@ -18,7 +26,7 @@ class SSDFileWriterTest {
         int position = 0;
         String value = "0x12345678";
 
-        SSDFileWriter.write(position, value);
+        writer.write(position, value);
     }
 
 }

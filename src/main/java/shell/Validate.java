@@ -5,23 +5,16 @@ import shell.dto.UserInput;
 public class Validate {
     private UserInput userInput;
 
-    public Validate() {
-        this.userInput = new UserInput();
-    }
-
     public UserInput validateCommand(String str) {
         String[] checkStr = str.trim().split("\\s+");
-        if (checkStr.length < 1 || checkStr[0].equals("")) {
-            return setInvalidCommand();
-        }
 
         String cmd = checkStr[0];
-        UserCommand command = UserCommand.fromString(cmd);
-        if (command == null) {
+        userInput = new UserInput(cmd);
+        if (checkStr.length < 1 || cmd.equals("")) {
             return setInvalidCommand();
         }
 
-        userInput.setCommand(cmd);
+        UserCommand command = UserCommand.fromString(cmd);
         boolean isValid = false;
         switch (command) {
             case READ :
@@ -32,6 +25,10 @@ public class Validate {
                 break;
             case FULLWRITE :
                 isValid = validateFullWriteCommand(checkStr);
+                break;
+            case HELP:
+            case FULLREAD:
+                isValid = true;
                 break;
             default :
                 isValid = false;
@@ -67,7 +64,7 @@ public class Validate {
             }
             userInput.setLBA(result);
             return true;
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             return false;
         }
     }

@@ -73,6 +73,31 @@ class ServiceTest {
         verify(iStorage, times(100)).Write(anyInt(), anyString());
     }
 
+    @Test
+    void testapp1_성공시_fullread수행여부및성공출력확인(){
+        for(int i=0;i<100;i++){
+            doReturn(value).when(iStorage).Read(i);
+        }
 
+        service.testapp1(value);
+        verify(iStorage, times(100)).Read(anyInt());
+
+        String expected = "TestApp1 성공하였습니다.\n";
+        assertEquals(expected, outputStreamCaptor.toString());
+    }
+
+    @Test
+    void testapp1_실패시_read수행횟수및실패출력확인(){
+        for(int i=0;i<10;i++){
+            doReturn(value).when(iStorage).Read(i);
+        }
+        doReturn("Other Value").when(iStorage).Read(10);
+
+        service.testapp1(value);
+        verify(iStorage, times(11)).Read(anyInt());
+
+        String expected = "TestApp1 실패.\n";
+        assertEquals(expected, outputStreamCaptor.toString());
+    }
 
 }

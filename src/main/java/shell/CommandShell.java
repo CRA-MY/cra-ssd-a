@@ -23,7 +23,6 @@ public class CommandShell {
 
     public static void main(String[] args) {
         Controller controller = new Controller();
-        // 실제 실행에서는 Scanner를 사용하는 InputProvider 구현체를 전달
         InputProvider scannerInputProvider = () -> new Scanner(System.in).nextLine();
         new CommandShell(controller, scannerInputProvider).run();
     }

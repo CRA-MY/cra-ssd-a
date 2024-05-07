@@ -21,6 +21,6 @@ public class SSDManager implements IStorage {
 
     @Override
     public void Write(int position, String value) {
-        return ssdFileWriter.write(position, value);
+        ssdFileWriter.write(position, value);
     }
 }

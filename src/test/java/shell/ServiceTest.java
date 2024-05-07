@@ -18,7 +18,6 @@ class ServiceTest {
     Service service;
     int position = 1;
     String value = "0xAAAABBBB";
-    Service iservice;
     String testapp2WriteValue = "0xAAAABBBB";
     String testapp2OverWriteValue = "0x12345678";
 
@@ -27,7 +26,6 @@ class ServiceTest {
         iStorage = mock(IStorage.class);
         service = new Service(iStorage);
         System.setOut(new PrintStream(outputStreamCaptor));
-        iservice = mock(Service.class);
     }
 
     @Test

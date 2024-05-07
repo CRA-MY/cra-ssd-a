@@ -3,18 +3,18 @@ package shell;
 import hardware.IStorage;
 
 public class Service {
-    IStorage iStoreage;
+    IStorage iStorage;
 
-    public Service(IStorage iStoreage) {
-        this.iStoreage = iStoreage;
+    public Service(IStorage iStorage) {
+        this.iStorage = iStorage;
     }
 
     public void read(int position) {
-        System.out.println(iStoreage.Read(position));
+        System.out.println(iStorage.Read(position));
     }
 
     public Boolean write(int position, String value) {
-        return iStoreage.Write(position, value);
+        return iStorage.Write(position, value);
     }
 
 

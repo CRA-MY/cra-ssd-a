@@ -4,6 +4,19 @@ public class UserInput {
     String command;
     int LBA;
     String value;
+    String status;
+
+    public UserInput() {
+        this.status = "PASS";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public UserInput(String command, int LBA, String value) {
         this.command = command;

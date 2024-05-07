@@ -34,6 +34,10 @@ public class Validate {
             case FULLWRITE:
                 validateValue(checkStr[1]);
                 break;
+            case HELP:
+                break;
+            case FULLREAD:
+                break;
             default:
                 userInput.setStatus("INVALID COMMAND");
         }

@@ -16,7 +16,8 @@ public class CommandShell {
         do {
             System.out.print("Enter input: ");
             input = inputProvider.getInput(); // Scanner 대신 InputProvider 사용
-            controller.getUserInput(input);
+            String returnValue = controller.getUserInput(input);
+            System.out.println(returnValue);
         } while (!input.equals("exit"));
     }
 

@@ -3,6 +3,8 @@ package shell;
 import shell.dto.UserInput;
 
 public class Controller {
+    public static final String DEFAULT_TESTAPP1_VALUE = "0xAAAABBBB";
+
     Service service;
     Validate validate;
 
@@ -45,6 +47,10 @@ public class Controller {
             case FULLREAD:
                 service.fullread();
                 break;
+            case TESTAPP1:
+                service.testapp1(DEFAULT_TESTAPP1_VALUE);
+            case TESTAPP2:
+                service.testapp2();
             default:
                 throw new IllegalArgumentException("Unsupported command: " + command);
         }

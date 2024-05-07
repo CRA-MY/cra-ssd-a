@@ -35,8 +35,9 @@ public class Validate {
                 validateValue(checkStr[1]);
                 break;
             case HELP:
-                break;
             case FULLREAD:
+            case TESTAPP1:
+            case TESTAPP2:
                 break;
             default:
                 userInput.setStatus("INVALID COMMAND");

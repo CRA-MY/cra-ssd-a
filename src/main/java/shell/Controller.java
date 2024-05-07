@@ -14,20 +14,25 @@ public class Controller {
     }
 
     public void sendService(UserInput userInput) {
-        if (userInput.getCommend().equals("read")) {
-            service.read(userInput.getLBA());
-        }
-        else if (userInput.getCommend().equals("write")) {
-            service.write(userInput.getLBA(), userInput.getValue());
-        }
-        else if (userInput.getCommend().equals("help")) {
-            service.help();
-        }
-        else if (userInput.getCommend().equals("fullwrite")) {
-            service.fullwrite(userInput.getValue());
-        }
-        else if (userInput.getCommend().equals("fullread")) {
-            service.fullread();
+        UserCommand command = UserCommand.fromString(userInput.getCommand());
+        switch (command) {
+            case READ:
+                service.read(userInput.getLBA());
+                break;
+            case WRITE:
+                service.write(userInput.getLBA(), userInput.getValue());
+                break;
+            case HELP:
+                service.help();
+                break;
+            case FULLWRITE:
+                service.fullwrite(userInput.getValue());
+                break;
+            case FULLREAD:
+                service.fullread();
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported command: " + command);
         }
     }
 }

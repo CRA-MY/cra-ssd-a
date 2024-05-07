@@ -36,5 +36,13 @@ public class Service {
 
     public void testapp1(String value) {
         fullwrite(value);
+        for(int i=0;i<100;i++){
+            if(!iStorage.Read(i).equals(value)){
+                System.out.print("TestApp1 실패.\n");
+                return;
+            }
+        }
+        System.out.print("TestApp1 성공하였습니다.\n");
     }
+
 }

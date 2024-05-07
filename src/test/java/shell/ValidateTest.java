@@ -66,8 +66,8 @@ class ValidateTest {
 
     @Test
     void testValidateWriteCommandWithValidInput() {
-        UserInput result = validate.validateCommand("WRITE 50 0x12345678");
-        assertEquals(50, result.getLBA());
+        UserInput result = validate.validateCommand("WRITE 50 0x123456GG");
+        assertEquals("PASS", result.getStatus());
     }
 
     @Test

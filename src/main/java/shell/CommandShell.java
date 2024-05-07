@@ -1,5 +1,7 @@
 package shell;
 
+import hardware.SSDManager;
+
 import java.util.Scanner;
 
 public class CommandShell {
@@ -16,14 +18,12 @@ public class CommandShell {
         do {
             System.out.print("Enter input: ");
             input = inputProvider.getInput(); // Scanner 대신 InputProvider 사용
-            String returnValue = controller.getUserInput(input);
-            System.out.println(returnValue);
+            controller.getUserInput(input);
         } while (!input.equals("exit"));
     }
 
     public static void main(String[] args) {
-        Controller controller = new Controller();
-        // 실제 실행에서는 Scanner를 사용하는 InputProvider 구현체를 전달
+        Controller controller = new Controller(new Service(new SSDManager()));
         InputProvider scannerInputProvider = () -> new Scanner(System.in).nextLine();
         new CommandShell(controller, scannerInputProvider).run();
     }

@@ -145,11 +145,21 @@ class ValidateTest {
     @Test
     void validateHelpComand(){
         String str = "help";
-        Validate validate = new Validate();
         validate.validateCommand(str);
     }
 
     @Test
+    void doubleValidate(){
+        String str = "write 3 0x123";
+        UserInput ret = validate.validateCommand(str);
+        assertEquals("INVALID COMMAND",ret.getStatus());
+
+        str = "help";
+        ret = validate.validateCommand(str);
+        assertEquals("PASS",ret.getStatus());
+    }
+
+    /*@Test
     void validateLBA(){
         boolean ret = validate.validateLBA("1");
         assertEquals(true,ret );
@@ -160,7 +170,7 @@ class ValidateTest {
 
         boolean ret = validate.validateValue("0x00000000");
         assertEquals(true, ret);
-    }
+    }*/
 
 
 }

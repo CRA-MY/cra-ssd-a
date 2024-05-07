@@ -15,11 +15,12 @@ public class CommandShell {
 
     public void run() {
         String input;
-        do {
+        while (true) {
             System.out.print("Enter input: ");
             input = inputProvider.getInput(); // Scanner 대신 InputProvider 사용
+            if (input.equals("exit")) break;
             controller.receiveUserInputString(input);
-        } while (!input.equals("exit"));
+        }
     }
 
     public static void main(String[] args) {

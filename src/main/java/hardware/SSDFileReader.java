@@ -24,8 +24,10 @@ public class SSDFileReader {
             ArrayList<String> result = new ArrayList<>();
             FileReader fileReader = new FileReader(STORE_FILE_NAME);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            for(int i = 0; i< MAX_NAND_INDEX; i++)
-                result.add(bufferedReader.readLine());
+            for(int i = 0; i< MAX_NAND_INDEX; i++) {
+                String read_line = bufferedReader.readLine();
+                result.add((read_line == null) ? DEFAULT_VALUE : read_line);
+            }
             return result;
         } catch (IOException e) {
             return getDefaultList();

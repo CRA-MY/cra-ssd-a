@@ -47,5 +47,11 @@ class ValidateTest {
         assertEquals(2,ret );
     }
 
+    @Test
+    void validateValue(){
+
+        validate.validateValue("0x00000000");
+    }
+
 
 }

@@ -66,7 +66,7 @@ class ControllerTest {
     @Test
     void testReceiveUserInputStringWithValidCommand() {
         UserInput validUserInput = new UserInput("READ", 1, "value", "VALID");
-        when(validate.validateComand("read 1")).thenReturn(validUserInput);
+        when(validate.validateCommand("read 1")).thenReturn(validUserInput);
 
         controller.receiveUserInputString("read 1");
 
@@ -76,7 +76,7 @@ class ControllerTest {
 
     @Test
     void testReceiveUserInputStringWithInvalidCommand() {
-        when(validate.validateComand("invalid command")).thenThrow(new IllegalArgumentException("INVALID COMMAND"));
+        when(validate.validateCommand("invalid command")).thenThrow(new IllegalArgumentException("INVALID COMMAND"));
 
         controller.receiveUserInputString("invalid command");
 

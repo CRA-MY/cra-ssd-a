@@ -16,7 +16,7 @@ public class Controller {
     public void receiveUserInputString(String userInputString) {
         UserInput userInput;
         try {
-            userInput = validate.validateComand(userInputString);
+            userInput = validate.validateCommand(userInputString);
             if (userInput.getStatus().equals("INVALID COMMAND")) {
                 System.out.println("INVALID COMMAND");
                 return;

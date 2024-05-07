@@ -68,6 +68,9 @@ class ServiceTest {
 
     @Test
     void testapp1_fullwrite수행여부확인(){
+        for(int i=0;i<100;i++){
+            doReturn(value).when(iStorage).Read(i);
+        }
         service.testapp1(value);
         verify(iStorage, times(1)).Write(0, value);
         verify(iStorage, times(100)).Write(anyInt(), anyString());
@@ -99,5 +102,18 @@ class ServiceTest {
         String expected = "TestApp1 실패.\n";
         assertEquals(expected, outputStreamCaptor.toString());
     }
+
+    @Test
+    void testapp2_write수행횟수확인(){
+        String testapp2WriteValue = "0xAAAABBBB";
+        String testapp2OverWriteValue = "0x12345678";
+        for(int i=0;i<5;i++){
+            doReturn(testapp2OverWriteValue).when(iStorage).Read(i);
+        }
+        service.testapp2();
+        verify(iStorage, times(30)).Write(0, testapp2WriteValue);
+        verify(iStorage, times(1)).Write(0, testapp2OverWriteValue);
+    }
+
 
 }

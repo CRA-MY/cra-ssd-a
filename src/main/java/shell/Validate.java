@@ -32,7 +32,7 @@ public class Validate {
                 validateValue(checkStr[2]);
                 break;
             case FULLWRITE:
-                validateValue(checkStr[2]);
+                validateValue(checkStr[1]);
                 break;
             default:
                 userInput.setStatus("INVALID COMMAND");

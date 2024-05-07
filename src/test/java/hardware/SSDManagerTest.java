@@ -21,7 +21,7 @@ class SSDManagerTest {
     @Test
     void write() {
         SSDManager ssdmanager = new SSDManager(ssdFRMock, ssdFWMock);
-        boolean result = ssdmanager.Write(20, "0x1289CDEF");
+        ssdmanager.Write(20, "0x1289CDEF");
         verify(ssdFWMock, times(1)).write(20, "0x1289CDEF");
     }
 

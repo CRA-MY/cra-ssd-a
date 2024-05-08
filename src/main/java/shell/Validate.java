@@ -11,21 +11,23 @@ public class Validate {
     private static final double MAX = 99;
     public static final double SIZEMIN = 1;
     private static final double SIZEMAX = 10;
+    private static final int VALUE_LENGTH = 10;
+    private static final String VALUE_PREFIX = "0x";
     private UserInput userInput;
 
     private  final Map<UserCommand, Function<String[], Boolean>> commandValidators = new HashMap<>();
 
      {
-        commandValidators.put(UserCommand.READ, checkStr -> validateReadCommand(checkStr));
-        commandValidators.put(UserCommand.WRITE, checkStr -> validateWriteCommand(checkStr));
-        commandValidators.put(UserCommand.FULLWRITE, checkStr -> validateFullWriteCommand(checkStr));
-        commandValidators.put(UserCommand.ERASE, checkStr -> validateEraseCommand(checkStr));
-        commandValidators.put(UserCommand.ERASE_RANGE, checkStr -> validateEraseRangeCommand(checkStr));
-        commandValidators.put(UserCommand.HELP, args -> true);
-        commandValidators.put(UserCommand.FULLREAD, args -> true);
-        commandValidators.put(UserCommand.TESTAPP1, args -> true);
-        commandValidators.put(UserCommand.TESTAPP2, args -> true);
-        commandValidators.put(UserCommand.FLUSH, args -> true);
+         commandValidators.put(UserCommand.READ, this::validateReadCommand);
+         commandValidators.put(UserCommand.WRITE, this::validateWriteCommand);
+         commandValidators.put(UserCommand.FULLWRITE, this::validateFullWriteCommand);
+         commandValidators.put(UserCommand.ERASE, this::validateEraseCommand);
+         commandValidators.put(UserCommand.ERASE_RANGE, this::validateEraseRangeCommand);
+         commandValidators.put(UserCommand.HELP, args -> true);
+         commandValidators.put(UserCommand.FULLREAD, args -> true);
+         commandValidators.put(UserCommand.TESTAPP1, args -> true);
+         commandValidators.put(UserCommand.TESTAPP2, args -> true);
+         commandValidators.put(UserCommand.FLUSH, args -> true);
     }
 
     public  UserInput validateCommand(String str) {
@@ -116,7 +118,6 @@ public class Validate {
         }
     }
 
-
     private int validateLBARange(String number) {
         try {
             int result = Integer.parseInt(number);
@@ -131,16 +132,8 @@ public class Validate {
     }
 
     private boolean validateValue(String value) {
-        if (!value.startsWith("0x") || value.length() != 10) {
-            return false;
-        }
-
-        for (int i = 2; i < value.length(); i++) {
-            char c = value.toLowerCase().charAt(i);
-            if ('0' > c || c > 'f') return false;
-        }
-
-        return true;
+        return value.startsWith(VALUE_PREFIX) && value.length() == VALUE_LENGTH
+                && value.substring(2).toLowerCase().matches("[0-9a-f]+");
     }
 
     private UserInput setInvalidCommand() {

@@ -39,6 +39,12 @@ public class Controller {
             case WRITE:
                 service.write(userInput.getLBA(), userInput.getValue());
                 break;
+            case ERASE:
+                service.erase(userInput.getLBA(), userInput.getSize());
+                break;
+            case ERASE_RANGE:
+                service.erase_range(userInput.getLBA(), userInput.getELBA());
+                break;
             case HELP:
                 service.help();
                 break;

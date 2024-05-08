@@ -15,13 +15,22 @@ public class Service {
     }
 
     public void read(int position) {
-        ArrayList<String> tempCommand = new ArrayList<>(Arrays.asList("R", String.valueOf(position)));
-        iStorage.setCommand(tempCommand);
-        iStorage.run();
+        setCommandAndRun(new ArrayList<>(Arrays.asList("R", String.valueOf(position))));
     }
 
     public void write(int position, String value) {
-        ArrayList<String> tempCommand = new ArrayList<>(Arrays.asList("W", String.valueOf(position), value));
+        setCommandAndRun(new ArrayList<>(Arrays.asList("W", String.valueOf(position), value)));
+    }
+
+    public void erase(int position, int size) {
+        setCommandAndRun(new ArrayList<>(Arrays.asList("E", String.valueOf(position), String.valueOf(size))));
+    }
+
+    public void erase_range(int start, int end) {
+        setCommandAndRun(new ArrayList<>(Arrays.asList("E", String.valueOf(start), String.valueOf(end - start))));
+    }
+
+    private void setCommandAndRun(ArrayList<String> tempCommand) {
         iStorage.setCommand(tempCommand);
         iStorage.run();
     }
@@ -51,7 +60,7 @@ public class Service {
 
     private boolean isWritten(String value) {
         for (int i = 0; i < 100; i++) {
-            if (!iStorage.Read(i).equals(value)) {
+            if (!iStorage.read(i).equals(value)) {
                 System.out.print("TestApp1 실패.\n");
                 System.out.print(i + "번 LBA에 " + value + "가 정상 Write 되지 않았습니다.\n");
                 return false;
@@ -78,7 +87,7 @@ public class Service {
 
     private boolean isOverWritten(String value) {
         for (int i = 0; i < 5; i++) {
-            if (!iStorage.Read(i).equals(value)) {
+            if (!iStorage.read(i).equals(value)) {
                 System.out.print("TestApp2 실패.\n");
                 System.out.print(i + "번 LBA에 " + value + "가 정상 Over Write 되지 않았습니다.\n");
                 return false;

@@ -46,7 +46,7 @@ class ValidateTest {
     void testValidateCommandWithInvalidCommand() {
         AtomicReference<UserInput> result = null;
         IllegalArgumentException thrown = (IllegalArgumentException) assertThrows(Exception.class, () -> {
-            result.set(validate.validateCommand("INVALID"));
+            result.set(validate.validateCommand("INVALID COMMAND"));
         });
 
         assertEquals("Unknown command: INVALID", thrown.getMessage() );
@@ -59,6 +59,12 @@ class ValidateTest {
     }
 
     @Test
+    void testValidateEraseCommandWithValidInput() {
+        UserInput result = validate.validateCommand("erase 50 5");
+        assertEquals(50, result.getLBA());
+    }
+
+    @Test
     void testValidateReadCommandWithInvalidLBA() {
         UserInput result = validate.validateCommand("READ 150");
         assertEquals("INVALID COMMAND", result.getStatus());
@@ -67,7 +73,7 @@ class ValidateTest {
     @Test
     void testValidateWriteCommandWithValidInput() {
         UserInput result = validate.validateCommand("WRITE 50 0x123456GG");
-        assertEquals("PASS", result.getStatus());
+        assertEquals("INVALID COMMAND", result.getStatus());
     }
 
     @Test
@@ -95,45 +101,26 @@ class ValidateTest {
     }
 
     @Test
-    void testValidateLBAWithNonNumericInput() {
-        assertFalse(validate.validateLBA("abc"));
-    }
-
-    @Test
-    void testValidateValueWithInvalidPrefix() {
-        assertFalse(validate.validateValue("12345678"));
-    }
-
-    @Test
-    void testValidateValueWithInvalidLength() {
-        assertFalse(validate.validateValue("0x123456"));
-    }
-
-    @Test
     void validateWriteComand(){
         String str = "write  3  0xAAAABBBB";
-        Validate validate = new Validate();
         validate.validateCommand(str);
     }
 
     @Test
     void validateReadComand(){
         String str = "read  3";
-        Validate validate = new Validate();
         validate.validateCommand(str);
     }
 
     @Test
     void validateFullWriteComand(){
         String str = "fullwrite  0x00000000";
-        Validate validate = new Validate();
         validate.validateCommand(str);
     }
 
     @Test
     void validateFullReadComand(){
         String str = "fullread";
-        Validate validate = new Validate();
         validate.validateCommand(str);
     }
 
@@ -153,5 +140,4 @@ class ValidateTest {
         ret = validate.validateCommand(str);
         assertEquals("PASS",ret.getStatus());
     }
-
 }

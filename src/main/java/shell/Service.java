@@ -45,10 +45,11 @@ public class Service {
     }
 
     public String fullread() {
+        String result = "";
         for (int i = 0; i < 100; i++) {
-            read(i);
+            result += read(i) + "\n";
         }
-        return null;
+        return result;
     }
 
     public String testapp1(String value) {

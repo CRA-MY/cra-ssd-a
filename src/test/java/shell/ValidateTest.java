@@ -46,7 +46,7 @@ class ValidateTest {
     void testValidateCommandWithInvalidCommand() {
         AtomicReference<UserInput> result = null;
         IllegalArgumentException thrown = (IllegalArgumentException) assertThrows(Exception.class, () -> {
-            result.set(validate.validateCommand("INVALID"));
+            result.set(validate.validateCommand("INVALID COMMAND"));
         });
 
         assertEquals("Unknown command: INVALID", thrown.getMessage() );

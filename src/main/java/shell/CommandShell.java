@@ -31,7 +31,7 @@ public class CommandShell {
     }
 
     public static void main(String[] args) {
-        Controller controller = new Controller(new Service(new SSDManager()));
+        Controller controller = new Controller(new Service(new SSDManager()), true);
         InputProvider scannerInputProvider = () -> new Scanner(System.in).nextLine();
         new CommandShell(controller, scannerInputProvider).run();
     }

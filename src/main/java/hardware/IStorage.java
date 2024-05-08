@@ -8,5 +8,6 @@ public interface IStorage {
     public void setCommand(ArrayList<String> command);
     public String Read(int position);
     public void Write(int position, String value);
+    public void Erase(int position, int size);
     public void run();
 }

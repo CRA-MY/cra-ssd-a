@@ -1,6 +1,7 @@
 package hardware;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SSDManager implements IStorage {
     SSDFileReader ssdFileReader;
@@ -38,11 +39,19 @@ public class SSDManager implements IStorage {
     }
 
     @Override
-    public void run(){
-        if(this.command.get(0).equals("R")){
-            System.out.println(this.Read(Integer.parseInt(this.command.get(1))));
-        }else if(this.command.get(0).equals("W")){
-            this.Write(Integer.parseInt(this.command.get(1)), this.command.get(2));
+    public void Erase(int position, int size) {
+        for(int i=position; i<100 && i-position < size; i++) {
+            Write(i, "0x00000000");
         }
+    }
+
+    @Override
+    public void run(){
+        if(this.command.get(0).equals("R"))
+            System.out.println(this.Read(Integer.parseInt(this.command.get(1))));
+        if(this.command.get(0).equals("W"))
+            this.Write(Integer.parseInt(this.command.get(1)), this.command.get(2));
+        if(this.command.get(0).equals("E"))
+            this.Erase(Integer.parseInt(this.command.get(1)), Integer.parseInt(this.command.get(2)));
     }
 }

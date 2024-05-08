@@ -2,6 +2,9 @@ package shell;
 
 import hardware.IStorage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Service {
     public static final String TESTAPP_2_INITIAL_WRITE_VALUE = "0xAAAABBBB";
     public static final String TESTAPP_2_OVER_WRITE_VALUE = "0x12345678";
@@ -12,11 +15,15 @@ public class Service {
     }
 
     public void read(int position) {
-        System.out.println(iStorage.Read(position));
+        ArrayList<String> tempCommand = new ArrayList<>(Arrays.asList("R", String.valueOf(position)));
+        iStorage.setCommand(tempCommand);
+        iStorage.run();
     }
 
     public void write(int position, String value) {
-        iStorage.Write(position, value);
+        ArrayList<String> tempCommand = new ArrayList<>(Arrays.asList("W", String.valueOf(position), value));
+        iStorage.setCommand(tempCommand);
+        iStorage.run();
     }
 
     public void help() {

@@ -5,6 +5,8 @@ public class UserInput {
     int LBA;
     String value;
     String status;
+    int size;
+    int ELBA;
 
     public int getSize() {
         return size;
@@ -14,8 +16,6 @@ public class UserInput {
         this.size = size;
     }
 
-    int size;
-
     public int getELBA() {
         return ELBA;
     }
@@ -23,8 +23,6 @@ public class UserInput {
     public void setELBA(int ELBA) {
         this.ELBA = ELBA;
     }
-
-    int ELBA;
 
     public UserInput(String cmd) {
         this.command = cmd;

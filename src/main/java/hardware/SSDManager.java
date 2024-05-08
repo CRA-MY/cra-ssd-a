@@ -41,7 +41,7 @@ public class SSDManager implements IStorage {
     public void run(){
         if(this.command.get(0).equals("R")){
             System.out.println(this.Read(Integer.parseInt(this.command.get(1))));
-        }else{
+        }else if(this.command.get(0).equals("W")){
             this.Write(Integer.parseInt(this.command.get(1)), this.command.get(2));
         }
     }

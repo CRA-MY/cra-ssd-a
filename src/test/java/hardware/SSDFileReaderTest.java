@@ -12,6 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SSDFileReaderTest {
 
+    SSDFileReader reader;
+
+    @BeforeEach
+    public void setUp() {
+        reader = new SSDFileReader();
+    }
+
     public void makeTestNandFile() {
         try {
             FileWriter fileWriter = new FileWriter("nand.txt");
@@ -36,7 +43,7 @@ class SSDFileReaderTest {
     @Test
     public void nand_txt_file_not_exists() {
         deleteTestNandFile();
-        String actual = SSDFileReader.read(0);
+        String actual = reader.read(0);
         String expected = "0x00000000";
 
         assertEquals(expected, actual);
@@ -45,7 +52,7 @@ class SSDFileReaderTest {
     @Test
     public void read_non_write_position() {
         makeTestNandFile();
-        String actual = SSDFileReader.read(0);
+        String actual = reader.read(0);
         String expected = "0x00000000";
 
         assertEquals(expected, actual);
@@ -54,7 +61,7 @@ class SSDFileReaderTest {
     @Test
     public void read_write_position() {
         makeTestNandFile();
-        String actual = SSDFileReader.read(3);
+        String actual = reader.read(3);
         String expected = "0x12345678";
 
         assertEquals(expected, actual);

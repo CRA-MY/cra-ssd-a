@@ -8,30 +8,33 @@ public class SSDFileReader {
     private static final String STORE_FILE_NAME = "nand.txt";
     private static final int MAX_NAND_INDEX = 100;
 
-    public static String read(int position){
+    public String read(int position){
         try{
+            SSDFileWriter writer = new SSDFileWriter();
             ArrayList<String> value = readNandAllContents();
-            SSDFileWriter.writeResultFile(value.get(position));
+            writer.writeResultFile(value.get(position));
             return value.get(position);
         } catch (IOException io) {
             return DEFAULT_VALUE;
         }
     }
 
-    public static ArrayList<String> readNandAllContents(){
+    public ArrayList<String> readNandAllContents(){
         try {
             ArrayList<String> result = new ArrayList<>();
             FileReader fileReader = new FileReader(STORE_FILE_NAME);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            for(int i = 0; i< MAX_NAND_INDEX; i++)
-                result.add(bufferedReader.readLine());
+            for(int i = 0; i< MAX_NAND_INDEX; i++) {
+                String read_line = bufferedReader.readLine();
+                result.add((read_line == null) ? DEFAULT_VALUE : read_line);
+            }
             return result;
         } catch (IOException e) {
             return getDefaultList();
         }
     }
 
-    private static ArrayList<String> getDefaultList() {
+    private ArrayList<String> getDefaultList() {
         ArrayList<String> result = new ArrayList<>();
         for(int i = 0; i< MAX_NAND_INDEX; i++)
             result.add(DEFAULT_VALUE);

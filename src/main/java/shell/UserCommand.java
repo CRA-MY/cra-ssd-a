@@ -5,7 +5,9 @@ public enum UserCommand {
     WRITE("write"),
     HELP("help"),
     FULLWRITE("fullwrite"),
-    FULLREAD("fullread");
+    FULLREAD("fullread"),
+    TESTAPP1("testapp1"),
+    TESTAPP2("testapp2");
 
     private final String command;
 

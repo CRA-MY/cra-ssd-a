@@ -8,22 +8,6 @@ public class UserInput {
     int size;
     int ELBA;
 
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getELBA() {
-        return ELBA;
-    }
-
-    public void setELBA(int ELBA) {
-        this.ELBA = ELBA;
-    }
-
     public UserInput(String cmd) {
         this.command = cmd;
         this.status = "PASS";
@@ -42,6 +26,14 @@ public class UserInput {
         this.value = value;
         this.status = status;
     }
+
+    public int getSize() {return size;}
+
+    public void setSize(int size) {this.size = size;}
+
+    public int getELBA() {return ELBA;}
+
+    public void setELBA(int ELBA) {this.ELBA = ELBA;}
 
     public String getStatus() {
         return status;

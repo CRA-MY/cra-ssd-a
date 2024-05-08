@@ -8,6 +8,7 @@ public enum UserCommand {
     FULLREAD("fullread"),
     TESTAPP1("testapp1"),
     TESTAPP2("testapp2"),
+    FLUSH("flush"),
     ERASE("erase"),
     ERASE_RANGE("erase_range");
 

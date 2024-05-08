@@ -5,10 +5,19 @@ public class UserInput {
     int LBA;
     String value;
     String status;
+    int size;
+    int ELBA;
 
     public UserInput(String cmd) {
         this.command = cmd;
         this.status = "PASS";
+        size = 0;
+    }
+
+    public UserInput(String command, int LBA, String value) {
+        this.command = command;
+        this.LBA = LBA;
+        this.value = value;
     }
 
     public UserInput(String command, int LBA, String value, String status) {
@@ -18,6 +27,14 @@ public class UserInput {
         this.status = status;
     }
 
+    public int getSize() {return size;}
+
+    public void setSize(int size) {this.size = size;}
+
+    public int getELBA() {return ELBA;}
+
+    public void setELBA(int ELBA) {this.ELBA = ELBA;}
+
     public String getStatus() {
         return status;
     }
@@ -26,19 +43,11 @@ public class UserInput {
         this.status = status;
     }
 
-    public UserInput(String command, int LBA, String value) {
-        this.command = command;
-        this.LBA = LBA;
-        this.value = value;
-    }
-
     public String getCommand() {
         return command;
     }
 
-    public void setCommand(String command) {
-        this.command = command;
-    }
+    public void setCommand(String command) { this.command = command; }
 
     public int getLBA() {
         return LBA;

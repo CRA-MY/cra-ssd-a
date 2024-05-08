@@ -8,8 +8,8 @@ import java.util.Arrays;
 
 public class SSDFileWriter {
 
-    private static final String RESULT_FILE_NAME = "result.txt";
-    private static final String STORE_FILE_NAME = "nand.txt";
+    private static final String RESULT_FILE_NAME = "storage/result.txt";
+    private static final String STORE_FILE_NAME = "storage/nand.txt";
 
     public void write(int position, String value) {
         try {
@@ -23,6 +23,14 @@ public class SSDFileWriter {
 
     private void writeFile(String fileName, ArrayList<String> lines) throws IOException {
         FileWriter fileWriter = new FileWriter(fileName);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        for(int i=0; i<lines.size(); i++)
+            bufferedWriter.write(lines.get(i) + "\n");
+        bufferedWriter.close();
+    }
+
+    public void write(String fileName, ArrayList<String> lines, boolean append) throws IOException {
+        FileWriter fileWriter = new FileWriter(fileName, append);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         for(int i=0; i<lines.size(); i++)
             bufferedWriter.write(lines.get(i) + "\n");

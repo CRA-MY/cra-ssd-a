@@ -77,7 +77,7 @@ public class Service {
 
     private boolean isWritten(String value) {
         for (int i = 0; i < 100; i++) {
-            if (!iStorage.read(i).equals(value)) {
+            if (!read(i).equals(value)) {
                 logger.log("TestApp1 실패.", false);
                 logger.log(i + "번 LBA에 " + value + "가 정상 Write 되지 않았습니다.\n", false);
                 return false;
@@ -96,7 +96,7 @@ public class Service {
 
     private boolean isOverWritten(String value) {
         for (int i = 0; i < 5; i++) {
-            if (!iStorage.read(i).equals(value)) {
+            if (!read(i).equals(value)) {
                 logger.log("TestApp2 실패.", false);
                 logger.log(i + "번 LBA에 " + value + "가 정상 Over Write 되지 않았습니다.", false);
                 return false;

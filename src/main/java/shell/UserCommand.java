@@ -7,7 +7,9 @@ public enum UserCommand {
     FULLWRITE("fullwrite"),
     FULLREAD("fullread"),
     TESTAPP1("testapp1"),
-    TESTAPP2("testapp2");
+    TESTAPP2("testapp2"),
+    ERASE("erase"),
+    ERASE_RANGE("erase_range");
 
     private final String command;
 

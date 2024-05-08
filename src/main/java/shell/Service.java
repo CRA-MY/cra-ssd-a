@@ -15,13 +15,22 @@ public class Service {
     }
 
     public void read(int position) {
-        ArrayList<String> tempCommand = new ArrayList<>(Arrays.asList("R", String.valueOf(position)));
-        iStorage.setCommand(tempCommand);
-        iStorage.run();
+        setCommandAndRun(new ArrayList<>(Arrays.asList("R", String.valueOf(position))));
     }
 
     public void write(int position, String value) {
-        ArrayList<String> tempCommand = new ArrayList<>(Arrays.asList("W", String.valueOf(position), value));
+        setCommandAndRun(new ArrayList<>(Arrays.asList("W", String.valueOf(position), value)));
+    }
+
+    public void erase(int position, String size){
+        setCommandAndRun(new ArrayList<>(Arrays.asList("E", String.valueOf(position), size)));
+    }
+
+    public void erase_range(int start, int end){
+        setCommandAndRun(new ArrayList<>(Arrays.asList("E", String.valueOf(start), String.valueOf(end-start))));
+    }
+
+    private void setCommandAndRun(ArrayList<String> tempCommand) {
         iStorage.setCommand(tempCommand);
         iStorage.run();
     }

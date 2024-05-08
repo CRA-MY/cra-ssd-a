@@ -67,7 +67,7 @@ class ValidateTest {
     @Test
     void testValidateWriteCommandWithValidInput() {
         UserInput result = validate.validateCommand("WRITE 50 0x123456GG");
-        assertEquals("PASS", result.getStatus());
+        assertEquals("INVALID COMMAND", result.getStatus());
     }
 
     @Test

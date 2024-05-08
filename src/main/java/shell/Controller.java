@@ -13,20 +13,21 @@ public class Controller {
         this.validate = new Validate();
     }
 
-    public void receiveUserInputString(String userInputString) {
+    public boolean receiveUserInputString(String userInputString) {
         UserInput userInput;
         try {
             userInput = validate.validateCommand(userInputString);
             if (userInput.getStatus().equals("INVALID COMMAND")) {
                 System.out.println("INVALID COMMAND");
-                return;
+                return false;
             }
         } catch (Exception e) {
             System.out.println("INVALID COMMAND");
-            return;
+            return false;
         }
 
         sendService(userInput);
+        return true;
     }
 
     public void sendService(UserInput userInput) {

@@ -9,5 +9,5 @@ public interface IStorage {
     public String read(int position);
     public void write(int position, String value);
     public void erase(int position, int size);
-    public void run();
+    String run();
 }

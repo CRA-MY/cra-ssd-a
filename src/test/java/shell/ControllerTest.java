@@ -23,7 +23,7 @@ class ControllerTest {
     public void setUp() {
         service = mock(Service.class);
         validate = mock(Validate.class);
-        controller = new Controller(service);
+        controller = new Controller(service, true);
         controller.validate = validate;
         System.setOut(new PrintStream(outContent));
     }

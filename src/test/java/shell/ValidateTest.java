@@ -59,6 +59,12 @@ class ValidateTest {
     }
 
     @Test
+    void testValidateEraseCommandWithValidInput() {
+        UserInput result = validate.validateCommand("erase 50 5");
+        assertEquals(50, result.getLBA());
+    }
+
+    @Test
     void testValidateReadCommandWithInvalidLBA() {
         UserInput result = validate.validateCommand("READ 150");
         assertEquals("INVALID COMMAND", result.getStatus());

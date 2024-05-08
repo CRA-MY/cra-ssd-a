@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class Validate {
-    public static final double MIN = 0;
-    private static final double MAX = 99;
-    public static final double SIZEMIN = 1;
-    private static final double SIZEMAX = 10;
+    public static final int MIN = 0;
+    private static final int MAX = 99;
+    public static final int SIZEMIN = 1;
+    private static final int SIZEMAX = 10;
     private static final int VALUE_LENGTH = 10;
     private static final String VALUE_PREFIX = "0x";
     private UserInput userInput;
@@ -21,8 +21,8 @@ public class Validate {
          commandValidators.put(UserCommand.READ, this::validateReadCommand);
          commandValidators.put(UserCommand.WRITE, this::validateWriteCommand);
          commandValidators.put(UserCommand.FULLWRITE, this::validateFullWriteCommand);
-         commandValidators.put(UserCommand.ERASE, this::validateEraseCommand);
-         commandValidators.put(UserCommand.ERASE_RANGE, this::validateEraseRangeCommand);
+         commandValidators.put(UserCommand.ERASE, this::validateCommand);
+         commandValidators.put(UserCommand.ERASE_RANGE, this::validateCommand);
          commandValidators.put(UserCommand.HELP, args -> true);
          commandValidators.put(UserCommand.FULLREAD, args -> true);
          commandValidators.put(UserCommand.TESTAPP1, args -> true);
@@ -45,29 +45,22 @@ public class Validate {
         return commandValidators.getOrDefault(command, args -> false).apply(checkStr);
     }
 
-    private boolean validateEraseRangeCommand(String[] checkStr) {
+    private boolean validateCommand(String[] checkStr) {
         if (checkStr.length != 3) return false;
 
-        int lba = validateLBARange(checkStr[1]);
-        int elba = validateLBARange(checkStr[2]);
-        if (lba == -1 || elba == -1) return false;
+        int firstParameter = validateRange(checkStr[1], MIN, MAX);
+        int sParam;
 
-        userInput.setLBA(lba);
-        userInput.setELBA(elba);
-
-        return true;
-    }
-
-    private boolean validateEraseCommand(String[] checkStr) {
-        if (checkStr.length != 3) return false;
-
-        int lba = validateLBARange(checkStr[1]);
-        int size = validateSizeRange(checkStr[2]);
-
-        if (lba == -1 || size == -1) return false;
-
-        userInput.setLBA(lba);
-        userInput.setSize(size);
+        UserCommand command2 = UserCommand.fromString(checkStr[0]);
+        if (command2.equals(UserCommand.ERASE) ) {
+            sParam = validateRange(checkStr[2], SIZEMIN, SIZEMAX);
+            userInput.setSize(sParam);
+        } else {
+            sParam = validateRange(checkStr[2], MIN, MAX);
+            userInput.setELBA(sParam);
+        }
+        if (firstParameter == -1 || sParam == -1) return false;
+        userInput.setLBA(firstParameter);
 
         return true;
     }
@@ -75,7 +68,7 @@ public class Validate {
     private boolean validateReadCommand(String[] checkStr) {
         if (checkStr.length != 2) return false;
 
-        int ret = validateLBARange(checkStr[1]);
+        int ret = validateRange(checkStr[1], MIN, MAX);
         if (ret==-1) return false;
 
         userInput.setLBA(ret);
@@ -84,7 +77,7 @@ public class Validate {
 
     private boolean validateWriteCommand(String[] checkStr) {
          if (checkStr.length != 3) return false;
-         int retLBA = validateLBARange(checkStr[1]);
+         int retLBA = validateRange(checkStr[1], MIN, MAX);
          boolean retVal = validateValue(checkStr[2]);
 
          if(retLBA != -1 && retVal){
@@ -105,23 +98,10 @@ public class Validate {
         return false;
     }
 
-    private int validateSizeRange(String number) {
+    private int validateRange(String number, int min, int max) {
         try {
             int result = Integer.parseInt(number);
-            if(SIZEMIN <= result && result <= SIZEMAX){
-                return result;
-            }else{
-                return -1;
-            }
-        } catch (NumberFormatException e) {
-            return -1;
-        }
-    }
-
-    private int validateLBARange(String number) {
-        try {
-            int result = Integer.parseInt(number);
-            if(MIN <= result && result <= MAX){
+            if(min <= result && result <= max){
                 return result;
             }else{
                 return -1;

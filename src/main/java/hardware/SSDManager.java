@@ -48,12 +48,13 @@ public class SSDManager implements IStorage {
     }
 
     @Override
-    public void run(){
+    public String run(){
         if(this.command.get(0).equals("R"))
-            System.out.println(this.read(Integer.parseInt(this.command.get(1))));
+            return this.read(Integer.parseInt(this.command.get(1)));
         if(this.command.get(0).equals("W"))
             this.write(Integer.parseInt(this.command.get(1)), this.command.get(2));
         if(this.command.get(0).equals("E"))
             this.erase(Integer.parseInt(this.command.get(1)), Integer.parseInt(this.command.get(2)));
+        return null;
     }
 }

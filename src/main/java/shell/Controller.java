@@ -7,10 +7,12 @@ public class Controller {
 
     Service service;
     Validate validate;
+    Boolean isPrint;
 
-    public Controller(Service service) {
+    public Controller(Service service, Boolean isPrint) {
         this.service = service;
         this.validate = new Validate();
+        this.isPrint = isPrint;
     }
 
     public boolean receiveUserInputString(String userInputString) {
@@ -18,23 +20,22 @@ public class Controller {
         try {
             userInput = validate.validateCommand(userInputString);
             if (userInput.getStatus().equals("INVALID COMMAND")) {
-                System.out.println("INVALID COMMAND");
+                printer("INVALID COMMAND");
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("INVALID COMMAND");
+            printer("INVALID COMMAND");
             return false;
         }
-
-        sendService(userInput);
-        return true;
+        return sendService(userInput);
     }
 
-    public void sendService(UserInput userInput) {
+    public Boolean sendService(UserInput userInput) {
         UserCommand command = UserCommand.fromString(userInput.getCommand());
+        Boolean result = true;
         switch (command) {
             case READ:
-                service.read(userInput.getLBA());
+                printer(service.read(userInput.getLBA()));
                 break;
             case WRITE:
                 service.write(userInput.getLBA(), userInput.getValue());
@@ -46,13 +47,13 @@ public class Controller {
                 service.erase_range(userInput.getLBA(), userInput.getELBA());
                 break;
             case HELP:
-                service.help();
+                printer(service.help());
                 break;
             case FULLWRITE:
                 service.fullwrite(userInput.getValue());
                 break;
             case FULLREAD:
-                service.fullread();
+                printer(service.fullread());
                 break;
             case TESTAPP1:
                 service.testapp1(DEFAULT_TESTAPP1_VALUE);
@@ -62,6 +63,13 @@ public class Controller {
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported command: " + command);
+        }
+        return result;
+    }
+
+    public void printer(String s) {
+        if (isPrint) {
+            System.out.println(s);
         }
     }
 }

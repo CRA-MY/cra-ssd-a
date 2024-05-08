@@ -37,7 +37,7 @@ public class Runner {
     }
 
     public static boolean runCommand(String command) {
-        Controller controller = new Controller(new Service(new SSDManager()));
+        Controller controller = new Controller(new Service(new SSDManager()), false);
         return controller.receiveUserInputString(command);
     }
 }

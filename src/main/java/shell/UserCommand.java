@@ -48,7 +48,7 @@ public enum UserCommand {
     FLUSH("flush") {
         @Override
         public void execute(Controller controller, UserInput userInput) {
-
+            controller.service.flush();
         }
     },
     ERASE("erase") {

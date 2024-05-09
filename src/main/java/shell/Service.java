@@ -33,6 +33,10 @@ public class Service {
         return setCommandAndRun(new ArrayList<>(Arrays.asList("E", String.valueOf(start), String.valueOf(end - start))));
     }
 
+    public String flush() {
+        return setCommandAndRun(new ArrayList<>(Arrays.asList("F")));
+    }
+
     public String help() {
         return Help.getHelp();
     }
@@ -111,5 +115,4 @@ public class Service {
             write(i, value);
         }
     }
-
 }

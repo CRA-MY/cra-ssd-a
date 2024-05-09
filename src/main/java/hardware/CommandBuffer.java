@@ -38,7 +38,7 @@ public class CommandBuffer {
         writer.initFile(BUFFER_FILE_NAME);
     }
 
-    public void recontruction () {
+    public void recontruction () throws IOException {
         ArrayList<String> buff_data = reader.read(BUFFER_FILE_NAME);
         for(int i=buff_data.size()-1; i>=0; i--) {
             String[] commands = convertCommands(buff_data.get(i));
@@ -76,40 +76,24 @@ public class CommandBuffer {
                     if(current_commands[0].equals("E")){
                         int current_start = Integer.parseInt(current_commands[1]);
                         int current_end = current_start + Integer.parseInt(current_commands[2]);
-                        // E 10 2 > start_index: 10, end_index: 12
-                        // E 12 3 > > current_start: 12, current_end: 15
-                        // => E 10 5 > 10~15
-                        if(end_index <= current_start) {
-                            // 포함될 때
-                            // E 8 10 > start_index: 8, end_index: 18
-                            // E 10 3 > current_start: 10, current_end: 13
-                            // => E 8 10 > 8~18
-                            int new_size = Integer.max(end_index, current_end) - start_index;
-                            String new_message = "E " + String.valueOf(start_index) + " " + String.valueOf(new_size);
-                            buff_data.set(i, new_message);
-                            buff_data.remove(j);
-                            i--;
-                        }
-                        // E 15 3 > start_index: 15, end_index: 18
-                        // E 12 3 > current_start: 12, current_end: 15
-                        // => E 12 6 > 12~18
-                        else if(start_index <= current_end) {
-                            // 포함될 때
-                            // E 10 3 > start_index: 10, end_index: 13
-                            // E 8 10 > current_start: 8, current_end: 18
-                            // => E 8 10 > 8~18
-                            int new_size = Integer.max(end_index, current_end) - current_start;
-                            String new_message = "E " + String.valueOf(current_start) + " " + String.valueOf(new_size);
+
+                        if(end_index <= current_start || start_index <= current_end) {
+
+                            int new_start = Integer.min(start_index, current_start);
+                            int new_size = Integer.max(end_index, current_end) - new_start;
+                            String new_message = "E " + String.valueOf(new_start) + " " + String.valueOf(new_size);
                             buff_data.set(i, new_message);
                             buff_data.remove(j);
                             i--;
                         }
                     }
                 }
-
-
                 // 재구축 알고리즘 End
             }
+        }
+        writer.initFile(BUFFER_FILE_NAME);
+        for(String data : buff_data) {
+            writeBuffer(data);
         }
     }
 

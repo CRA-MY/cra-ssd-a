@@ -13,7 +13,7 @@ public class Logger {
     private PrintWriter out;
     private static final String LOG_DIRECTORY = "log";
     private static final String LOG_FILE_NAME = "log.txt";
-    private static final long MAX_SIZE = 1024; // 1KB로 설정
+    private static final long MAX_SIZE = 10240; // 10KB로 설정
     public static final int LIMIT_FILE_COUT_TO_ZIP = 3; // 3개 이상은 ZIP 파일로 변경
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
     private static final SimpleDateFormat logTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 로그에 표시할 시간 포맷

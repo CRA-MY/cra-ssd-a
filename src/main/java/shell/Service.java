@@ -18,22 +18,22 @@ public class Service {
     }
 
     public String read(int position) {
-        logger.log("ssd로 read 요청", false);
+        logger.log(+position + "위치 read", false);
         return setCommandAndRun(new ArrayList<>(Arrays.asList("R", String.valueOf(position))));
     }
 
     public String write(int position, String value) {
-        logger.log("ssd로 write 요청", false);
+        logger.log(position + " 위치에" + value + " write", false);
         return setCommandAndRun(new ArrayList<>(Arrays.asList("W", String.valueOf(position), value)));
     }
 
     public String erase(int position, int size) {
-        logger.log("ssd로 erase 요청", false);
+        logger.log(position + " 부터" + size + "개 erase", false);
         return setCommandAndRun(new ArrayList<>(Arrays.asList("E", String.valueOf(position), String.valueOf(size))));
     }
 
     public String erase_range(int start, int end) {
-        logger.log("ssd로 erase_range 요청", false);
+        logger.log(start + " 부터" + end + " erase", false);
         return setCommandAndRun(new ArrayList<>(Arrays.asList("E", String.valueOf(start), String.valueOf(end - start))));
     }
 

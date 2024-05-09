@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class CommandBufferTest {
 
     @BeforeEach
@@ -16,7 +14,7 @@ class CommandBufferTest {
     }
 
     @Test
-    public void test_recontruction_case1() throws IOException {
+    public void test_reconstruction_case1() throws IOException {
         CommandBuffer buffer = new CommandBuffer();
 
         try {
@@ -25,12 +23,12 @@ class CommandBufferTest {
             buffer.writeBuffer("W 20 0xEEEEFFFF");
         } catch (IOException e) {
         }
-        buffer.recontruction();
+        buffer.reconstruction();
 
     }
 
     @Test
-    public void test_recontruction_case2() throws IOException {
+    public void test_reconstruction_case2() throws IOException {
         CommandBuffer buffer = new CommandBuffer();
 
         try {
@@ -39,11 +37,11 @@ class CommandBufferTest {
             buffer.writeBuffer("E 18 5");
         } catch (IOException e) {
         }
-        buffer.recontruction();
+        buffer.reconstruction();
     }
 
     @Test
-    public void test_recontruction_case3() throws IOException {
+    public void test_reconstruction_case3() throws IOException {
 
         // E 10 2 > start_index: 10, end_index: 12
         // E 12 3 > > current_start: 12, current_end: 15
@@ -68,11 +66,11 @@ class CommandBufferTest {
             buffer.writeBuffer("E 12 3");
         } catch (IOException e) {
         }
-        buffer.recontruction();
+        buffer.reconstruction();
     }
 
     @Test
-    public void test_recontruction_case4() throws IOException {
+    public void test_reconstruction_case4() throws IOException {
         CommandBuffer buffer = new CommandBuffer();
 
         try {
@@ -80,6 +78,6 @@ class CommandBufferTest {
             buffer.writeBuffer("E 10 2");
         } catch (IOException e) {
         }
-        buffer.recontruction();
+        buffer.reconstruction();
     }
 }

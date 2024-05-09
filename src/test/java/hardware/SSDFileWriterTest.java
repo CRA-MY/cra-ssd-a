@@ -26,7 +26,7 @@ class SSDFileWriterTest {
         int position = 0;
         String value = "0x12345678";
 
-        writer.write(position, value);
+        writer.writeNandFile(position, value);
     }
 
 }

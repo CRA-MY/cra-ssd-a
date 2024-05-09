@@ -41,4 +41,8 @@ public class SSDFileWriter {
         ArrayList<String> list = new ArrayList<>(Arrays.asList(value));
         writeFile(RESULT_FILE_NAME, list);
     }
+
+    public void initFile(String bufferFileName) throws IOException {
+        new FileWriter(bufferFileName, false).close();
+    }
 }

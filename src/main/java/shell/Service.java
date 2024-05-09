@@ -18,26 +18,32 @@ public class Service {
     }
 
     public String read(int position) {
+        logger.log("ssd로 read 요청", false);
         return setCommandAndRun(new ArrayList<>(Arrays.asList("R", String.valueOf(position))));
     }
 
     public String write(int position, String value) {
+        logger.log("ssd로 write 요청", false);
         return setCommandAndRun(new ArrayList<>(Arrays.asList("W", String.valueOf(position), value)));
     }
 
     public String erase(int position, int size) {
+        logger.log("ssd로 erase 요청", false);
         return setCommandAndRun(new ArrayList<>(Arrays.asList("E", String.valueOf(position), String.valueOf(size))));
     }
 
     public String erase_range(int start, int end) {
+        logger.log("ssd로 erase_range 요청", false);
         return setCommandAndRun(new ArrayList<>(Arrays.asList("E", String.valueOf(start), String.valueOf(end - start))));
     }
 
     public String help() {
+        logger.log("help 호출", false);
         return Help.getHelp();
     }
 
     public String fullwrite(String value) {
+        logger.log("ssd로 fullwrite 요청", false);
         for (int i = 0; i < 100; i++) {
             write(i, value);
         }
@@ -45,6 +51,7 @@ public class Service {
     }
 
     public String fullread() {
+        logger.log("ssd로 fullread 요청", false);
         String result = "";
         for (int i = 0; i < 100; i++) {
             result += read(i) + "\n";
@@ -53,6 +60,7 @@ public class Service {
     }
 
     public String testapp1(String value) {
+        logger.log("TestApp1 시작하였습니다.", false);
         fullwrite(value);
         if (isWritten(value)) {
             logger.log("TestApp1 성공하였습니다.", false);
@@ -62,6 +70,7 @@ public class Service {
     }
 
     public String testapp2() {
+        logger.log("TestApp2 시작하였습니다.", false);
         initialWrite30times(TESTAPP_2_INITIAL_WRITE_VALUE);
         overWrite(TESTAPP_2_OVER_WRITE_VALUE);
         if (isOverWritten(TESTAPP_2_OVER_WRITE_VALUE)) {

@@ -18,7 +18,7 @@ public class Service {
     }
 
     public String read(int position) {
-        logger.log(+position + "위치 read", false);
+        logger.log(position + "위치 read", false);
         return setCommandAndRun(new ArrayList<>(Arrays.asList("R", String.valueOf(position))));
     }
 

@@ -14,7 +14,7 @@ public class Runner {
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            logger.log("실행 인자가 필요합니다. Run config에서 Args를 입력후 실행해주세요.", true);
+            logger.log("실행 인자가 필요합니다. Run config에서 Args를 입력후 실행해주세요.");
             return;
         }
 

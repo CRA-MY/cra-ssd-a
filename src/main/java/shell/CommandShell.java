@@ -23,18 +23,18 @@ public class CommandShell {
     }
 
     public void run() {
-        logger.log("애플리케이션이 시작되었습니다.", true);
+        logger.log("애플리케이션이 시작되었습니다.");
 
         String input;
         while (true) {
             System.out.print("Enter input: ");
             input = inputProvider.getInput();
-            logger.log("받은 입력값: " + input, true);
+            logger.log("받은 입력값: " + input);
 
             if (input.equals("exit")) break;
             controller.receiveUserInputString(input);
         }
 
-        logger.log("애플리케이션이 종료되었습니다.", true);
+        logger.log("애플리케이션이 종료되었습니다.");
     }
 }

@@ -29,12 +29,15 @@ public class SSDManager implements IStorage {
                 case "R":
                     return buffer.read(command.get(0) + " " + command.get(1));
                 case "W":
-                    buffer.write(command.get(0) + " " + command.get(1) + " " + command.get(2));
+                    buffer.writeBuffer(command.get(0) + " " + command.get(1) + " " + command.get(2));
                     buffer.recontruction();
                     break;
                 case "E":
-                    buffer.erase(command.get(0) + " " + command.get(1) + " " + command.get(2));
+                    buffer.writeBuffer(command.get(0) + " " + command.get(1) + " " + command.get(2));
                     buffer.recontruction();
+                    break;
+                case "F":
+                    buffer.flush();
                     break;
                 default:
             }

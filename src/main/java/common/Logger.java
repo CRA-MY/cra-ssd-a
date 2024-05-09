@@ -11,6 +11,8 @@ public class Logger {
     private FileWriter fw;
     private BufferedWriter bw;
     private PrintWriter out;
+    private boolean isConsolePrint;
+
     private static final String LOG_DIRECTORY = "log";
     private static final String LOG_FILE_NAME = "log.txt";
     private static final long MAX_SIZE = 10240; // 10KB로 설정
@@ -37,32 +39,42 @@ public class Logger {
     public static synchronized Logger getInstance() {
         if (instance == null) {
             instance = new Logger();
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+            try {
+                String callingClassName = stackTraceElements[3].getClassName();
+                Class<?> callingClass = Class.forName(callingClassName);
+                if ("CommandShell".equals(callingClass.getSimpleName())) {
+                    instance.isConsolePrint = true;
+                } else if ("Runner".equals(callingClass.getSimpleName())) {
+                    instance.isConsolePrint = false;
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                instance.isConsolePrint = false;
+            }
         }
         return instance;
     }
 
-    public void log(String message, boolean toConsole) {
-        // 현재 시간을 포맷하여 가져옴
+    public void log(String message) {
         String currentTime = logTimeFormat.format(new Date());
 
-        // 호출 스택에서 현재 메소드와 클래스의 이름을 가져옴
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         String methodName = stackTraceElements[2].getMethodName();
         String className = stackTraceElements[2].getClassName();
         className = className.substring(className.lastIndexOf('.') + 1);
         String fullMethodName = className + "." + methodName;
 
-        // 메소드 이름과 클래스 이름의 조합이 일정 길이를 유지하도록 패딩 추가
         String paddedMethodName = String.format("%-" + MAX_METHOD_NAME_LENGTH + "s", fullMethodName);
 
-        // 현재 시간을 로그 메시지 앞에 추가
         String formattedMessage = currentTime + " " + paddedMethodName + ": " + message;
 
         try {
             checkAndRollFile();
             out.println(formattedMessage);
             out.flush(); // 실시간으로 파일에 기록하기 위해 flush 호출
-            if (toConsole) {
+            if (isConsolePrint) {
                 System.out.println(formattedMessage);
             }
         } catch (IOException e) {

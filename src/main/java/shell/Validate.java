@@ -32,15 +32,15 @@ public class Validate {
     }
 
     public UserInput validateCommand(String str) {
-        logger.log(str + " validation start", false);
+        logger.log(str + " validation start");
         String[] checkStr = str.trim().split("\\s+");
         String cmd = checkStr[0];
         userInput = new UserInput(cmd);
         if (cmd.isEmpty() || !isValidCmd(cmd, checkStr)) {
-            logger.log(str + " validation fail", false);
+            logger.log(str + " validation fail");
             return setInvalidCommand();
         }
-        logger.log(str + " validation pass", false);
+        logger.log(str + " validation pass");
         return userInput;
     }
 

@@ -1,0 +1,48 @@
+1. User Shell 기능
+hello
+help
+write 3 0x12345678
+read 3
+write 3 0x111
+read 3
+fullwrite 0x11111111
+fullread
+earse 5 10
+read 7
+erase_range 50 60
+read 59
+
+2. Test shell 기능
+testapp1
+fullread
+testapp2
+fullread
+
+3. Runner 기능
+list1 수행
+list2 수행
+
+4. Command Buffer Test
+
+case 1: 가장 최근에 있는 W에 대해 과거에 동일 W가 있으면, 과거 W는 삭제한다.
+buffer.txt 삭제
+write 20 0xABCDABCD
+write 21 0x12341234
+write 20 0xEEEEFFFF
+buffer.txt Open
+W 20 0xABCDABCD가 사라졌는지 확인
+
+case 2: 가장 최근에 있는 E의 범위에 과거 W가 있으면 무시한다.
+buffer.txt 삭제
+write 20 0xABCDABCD
+write 21 0x12341234
+erase 18 5
+buffer.txt Open
+E 18 5만 남았는지 확인
+
+case 3: Erase가 연속 2개일 때 연속적인 Range를 갖는다면 합친다.
+buffer.txt 삭제
+erase 10 2
+erase 12 3
+buffer.txt Open
+E 10 5로 변경됐는지 확인
